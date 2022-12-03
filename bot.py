@@ -10,7 +10,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-bot = commands.Bot(command_prefix='!', help_command=None)
+bot = commands.Bot(intents=discord.Intents.all(),command_prefix='!', help_command=None)
 
 # @client.event
 # async def on_ready():
@@ -39,7 +39,7 @@ async def help(ctx):
     embed.set_author(
         name=ctx.author.display_name, 
         url="https://twitter.com/RealDrewData", 
-        icon_url=ctx.author.avatar_url
+        icon_url=ctx.author.avatar.url
         )
     embed.set_thumbnail(url="https://res.cloudinary.com/dk128umo9/image/upload/v1669703912/logo-min_u8zcgc.png")
 
@@ -55,18 +55,20 @@ async def help(ctx):
 async def interns(ctx):
     embed=discord.Embed(
         title="Hult Prize Registration", 
-        url="https://admin-oncampus.hultprize.org/Account/Login", 
+        url="https://oncampus.hultprize.org/pulchowkcampus", 
         description="Registered Teams", 
         color=discord.Color.blue()
         )
     embed.set_author(
         name=ctx.author.display_name, 
         url="https://twitter.com/RealDrewData", 
-        icon_url=ctx.author.avatar_url
+        icon_url=ctx.author.avatar.url
         )
     embed.set_thumbnail(url="https://res.cloudinary.com/dk128umo9/image/upload/v1669703912/logo-min_u8zcgc.png")
         
-    teams= fetch_data()
+    teams= fetch_data()[1:]
+    embed.add_field(name=f'**TOTAL TEAMS: **', value=f'> {len(teams)}', inline=False)
+
     for each_team in teams:
         # print(title+ '\t' + author + '\t' + date + '\t')
         embed.add_field(name=f'**{each_team[0]}**', value=f'> Team Leader: {each_team[1]} \n> Email: {each_team[2]} \n> Contact:{each_team[3]} \n> Registered Time:{each_team[4]}', inline=False)

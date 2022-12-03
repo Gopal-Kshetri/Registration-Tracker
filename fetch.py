@@ -1,7 +1,7 @@
-import os
+# import os
 import requests
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 
 def fetch_data():
@@ -9,8 +9,13 @@ def fetch_data():
     headers = {
         'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:106.0) Gecko/20100101 Firefox/106.0'
     }
-    load_dotenv()
-    login_data = os.getenv('login_data')
+    # load_dotenv()
+    # login_data = os.getenv('login_data')
+
+    login_data = {
+    'username':'bishalbashyal33@gmail.com',
+    'password':'hultprize12!!',
+    }
 
     with requests.Session() as s:
         base_url = "https://admin-oncampus.hultprize.org"

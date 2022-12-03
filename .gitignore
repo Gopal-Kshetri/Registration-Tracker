@@ -1,3 +1,4 @@
 .env
 trash/
 env/
+__pycache__

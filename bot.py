@@ -12,18 +12,6 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 bot = commands.Bot(intents=discord.Intents.all(),command_prefix='!', help_command=None)
 
-# @client.event
-# async def on_ready():
-#     for guild in client.guilds:
-#         if guild.name == GUILD:
-#             break
-
-#     print(
-#         f'{client.user} is connected to the following guild:\n'
-#         f'{guild.name}(id: {guild.id})'
-#         )
-
-
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected!')
@@ -66,7 +54,7 @@ async def interns(ctx):
         )
     embed.set_thumbnail(url="https://res.cloudinary.com/dk128umo9/image/upload/v1669703912/logo-min_u8zcgc.png")
         
-    teams= fetch_data()[1:]
+    teams= fetch_data()
     embed.add_field(name=f'**TOTAL TEAMS: **', value=f'> {len(teams)}', inline=False)
 
     for each_team in teams:
@@ -77,16 +65,6 @@ async def interns(ctx):
 
 @bot.command(name='quote', help='Responds with a random quote from Brooklyn 99')
 async def quote(ctx):
-    
-    brooklyn_99_quotes = [
-        'I\'m the human form of the :100: emoji.',
-        'Bingpot!',
-        (
-            'Cool. Cool cool cool cool cool cool,   '
-            'no doubt no doubt no doubt. '
-        ),
-    ]
-
     response = friends_quote()
     await ctx.send(response)
     

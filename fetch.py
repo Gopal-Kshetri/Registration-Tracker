@@ -3,6 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 # from dotenv import load_dotenv
 
+# for ssl 
+import ssl
+import certifi
+from urllib.request import urlopen
+
 
 def fetch_data():
 
@@ -21,18 +26,20 @@ def fetch_data():
         base_url = "https://admin-oncampus.hultprize.org"
         log_url = "/Account/Login"
         home_url = base_url+log_url
-        res = s.get(home_url, headers=headers)
+        # urlopen(home_url, context=ssl.create_default_context(cafile=certifi.where()))
+        # print(home_url)
+        res = s.get(home_url, headers=headers, verify=False)
         soup = BeautifulSoup(res.content, 'html5lib')
         value = soup.find('input', attrs={'name':'__RequestVerificationToken'})['value']
         login_data['__RequestVerificationToken'] = value
 
         page = s.post(home_url, data=login_data, headers=headers)
-        registerBar_soup = BeautifulSoup(page.content, "html.parser")
-        results = registerBar_soup.find("div", id="mySidenav")
-        link_html = results.find_all("a", href=True)
-        link_list = []
-        for item in link_html:
-            link_list.append(item['href'])
+        # registerBar_soup = BeautifulSoup(page.content, "html.parser")
+        # results = registerBar_soup.find("div", id="mySidenav")
+        # link_html = results.find_all("a", href=True)
+        # link_list = []
+        # for item in link_html:
+        #     link_list.append(item['href'])
 
 
         

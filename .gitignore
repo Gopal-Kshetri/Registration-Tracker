@@ -1,4 +1,5 @@
 .env
 trash/
+tracker/
 env/
 __pycache__

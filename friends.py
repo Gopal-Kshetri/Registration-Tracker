@@ -2,15 +2,24 @@ import random
 import requests
 from bs4 import BeautifulSoup
 
+URL = "https://www.washingtonpost.com/arts-entertainment/2019/09/22/friends-premiered-years-ago-here-are-beloved-sitcoms-most-memorable-quotes/"
+page = requests.get(URL)
+
+quotes = []
+
+soup = BeautifulSoup(page.content, "html.parser")
+results = soup.find("div",id="__next")
+article_body = results.find_all("div", class_="article-body")
+
 def friends_quote():
-    URL = "https://www.washingtonpost.com/arts-entertainment/2019/09/22/friends-premiered-years-ago-here-are-beloved-sitcoms-most-memorable-quotes/"
-    page = requests.get(URL)
+    # URL = "https://www.washingtonpost.com/arts-entertainment/2019/09/22/friends-premiered-years-ago-here-are-beloved-sitcoms-most-memorable-quotes/"
+    # page = requests.get(URL)
 
-    quotes = []
+    # quotes = []
 
-    soup = BeautifulSoup(page.content, "html.parser")
-    results = soup.find("div",id="__next")
-    article_body = results.find_all("div", class_="article-body")
+    # soup = BeautifulSoup(page.content, "html.parser")
+    # results = soup.find("div",id="__next")
+    # article_body = results.find_all("div", class_="article-body")
     for each in article_body:
         header = each.find("h3")
         if header:

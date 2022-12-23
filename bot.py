@@ -41,11 +41,12 @@ async def help(ctx):
 
 @bot.command(name = 'query', help='Embed in Discord')
 async def interns(ctx):
+    teams_color=discord.Color.magenta()
     embed=discord.Embed(
         title="Hult Prize Registration", 
         url="https://oncampus.hultprize.org/pulchowkcampus", 
         description="Registered Teams", 
-        color=discord.Color.blue()
+        color=teams_color
         )
     embed.set_author(
         name=ctx.author.display_name, 
@@ -56,10 +57,25 @@ async def interns(ctx):
         
     teams= fetch_data()
     embed.add_field(name=f'**TOTAL TEAMS: **', value=f'> {len(teams)}', inline=False)
-
+    j=0
+    max_val = 40
     for each_team in teams:
-        # print(title+ '\t' + author + '\t' + date + '\t')
-        embed.add_field(name=f'**{each_team[0]}**', value=f'> Team Leader: {each_team[1]} \n> Email: {each_team[2]} \n> Contact:{each_team[3]} \n> Registered Time:{each_team[4]}', inline=False)
+        j += 1
+        if j%max_val != 0 and j<max_val:
+            embed.add_field(name=f'**{each_team[0]}**', value=f'> Team Leader: {each_team[1]} \n> Email: {each_team[2]} \n> Contact:{each_team[3]} \n> Registered Time:{each_team[4]}', inline=False)
+
+        else:
+            if j % max_val == 0:
+                await ctx.send(embed=embed)
+                embed = discord.Embed(
+                    title="Continue...", 
+                    url="https://oncampus.hultprize.org/pulchowkcampus", 
+                    description="Registered Teams", 
+                    color=teams_color
+                )
+
+        if j > max_val and (j % max_val != 0):
+            embed.add_field(name=f'**{each_team[0]}**', value=f'> Team Leader: {each_team[1]} \n> Email: {each_team[2]} \n> Contact:{each_team[3]} \n> Registered Time:{each_team[4]}', inline=False)         
 
     await ctx.send(embed=embed)
 

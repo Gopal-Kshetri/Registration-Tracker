@@ -1,6 +1,9 @@
 # import os
 import requests
 from bs4 import BeautifulSoup
+import urllib3
+import logging
+
 # from dotenv import load_dotenv
 
 
@@ -33,6 +36,9 @@ from bs4 import BeautifulSoup
 
 
 def fetch_data():
+
+    # logging.captureWarnings(True)
+    # urllib3.disable_warnings()
 
     s = requests.Session()
     headers = {

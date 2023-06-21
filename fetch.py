@@ -48,8 +48,8 @@ def fetch_data():
     # login_data = os.getenv('login_data')
 
     login_data = {
-    'username':'bishalbashyal33@gmail.com',
-    'password':'hultprize12!!',
+    'username':'',
+    'password':'',
     }
 
     base_url = "https://admin-oncampus.hultprize.org"
